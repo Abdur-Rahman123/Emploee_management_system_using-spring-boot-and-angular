@@ -1,0 +1,36 @@
+databaseChangeLog:
+  -  preConditions:
+  -  runningAs:
+       username:  root
+  - changeSet:
+      id: 5
+      author: rahman
+      changes:
+        - loadData:
+            catalogName: employeemanager
+            columns:
+              - column:
+                  header: header1
+                  name: id
+                  type: NUMERIC
+              - column:
+                  index: 1
+                  name: first_name
+                  type: STRING
+              - column:
+                   index: 2
+                   name: last_name
+                   type: STRING
+              - column:
+                  index: 3
+                  name: email
+                  type: STRING
+            commentLineStartsWith: //
+            encoding: UTF-8
+            file: ./users.csv
+            quotchar: ''''
+            relativeToChangelogFile: true
+            schemaName: employeemanager
+            separator: ','
+            tableName: users
+            usePreparedStatements: true

@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - preconditions:
+      dbms: mysql
+
+  - changeSet:
+      id: 1
+      author: rahman
+      comment: "basic communication preference table"
+      changes:
+        - createTable:
+            tableName: user2
+            columns:
+              - column:
+                  name: user_id
+                  type: integer
+                  constraints:
+                    nullable: false
+              - column:
+                  name: communication_id
+                  type: text
+                  constraints:
+                    nullable: false

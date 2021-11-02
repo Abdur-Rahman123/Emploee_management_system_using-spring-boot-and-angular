@@ -1,0 +1,11 @@
+databaseChangeLog:
+    - include:
+          file: "db/changelog/db-changelog-insert_user_table-1.0.sql"
+    - include:
+          file: "db/changelog/db-changelog-insert_user2_table-1.0.yml"
+    - include:
+          file: "db/changelog/db-changelog-add_colum_user_tabel-1.0.xml"
+    - include:
+          file: "db/changelog/db-changelog-seed-config-1.1.yml"
+    - include:
+        file: "db/changelog/db-changelog-employee-seed-config-1.0.yml"

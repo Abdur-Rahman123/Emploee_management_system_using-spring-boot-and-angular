@@ -1,0 +1,132 @@
+<nav class="navbar navbar-light bg-primary">
+    <div class="container-fluid">
+        <h1 style="color:white">Employee List</h1>
+        <div class="d-flex">
+          <input type="text" name="s" id="search" placeholder="Search Employee" class="mx-3" [(ngModel)]="searchValue">
+            <button (click)="clickAddEmployee()" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-success">Add Employee</button>
+        </div>
+    </div>
+</nav>
+
+<table class="table mt-3">
+    <thead>
+        <tr>
+            <th scope="col">Employee ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">job Title</th>
+            <th scope="col">Mobile No</th>
+            <th scope="col">IMg</th>
+            <th scope="col">Employee Code</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+
+
+      
+        <tr *ngFor="let raw of employeeData |searchFilter:searchValue">
+          
+            <td>{{raw.id}}</td>
+            <td>{{raw.name}}</td>
+            <td>{{raw.email}}</td>
+            <td>{{raw.jobTitle}}</td>
+            <td>{{raw.phone}}</td>
+            <td><img src="{{raw.imgUrl}}" alt="not found"></td>
+            <td>{{raw.employeeCode}}</td>
+            <td>
+            <button (click)="onUpdate(raw)" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal">Update</button>
+            <button (click)="deleteEmployee(raw.id)" class="btn btn-danger mx-3">Delete</button>
+            </td>
+            
+        </tr>
+    </tbody>
+</table>
+
+<!-- Button trigger modal -->
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Employee Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="formValue">
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Name</label>
+                  <input type="text" formControlName="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" [ngClass]="{'is-invalid':submitted && f.name.errors }">
+                  <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                    <div *ngIf="f.name.errors.required">Name is required</div>
+                </div>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Email Address</label>
+                    <input type="email" formControlName="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" [ngClass]="{'is-invalid':submitted && f.email.errors}">
+                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback"> 
+                      <div *ngIf="f.email.errors.required">Email is required</div>
+                      <div *ngIf="f.email.errors.email">please enter correct email address</div>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">Job Title</label>
+                    <input type="text" formControlName="jobTitle" class="form-control" id="exampleInputPassword1" [ngClass]="{'is-invalid':submitted && f.jobTitle.errors}">
+                    <div *ngIf="submitted && f.jobTitle.errors" class="invalid-feedback">
+                      <div *ngIf="f.jobTitle.errors.required">Job Title required</div>
+                     
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Phone Number</label>
+                    <input type="text" formControlName="phone" class="form-control" id="exampleInputEmail1" [ngClass]="{'is-invalid':submitted && f.phone.errors}">
+                    <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+                      <div *ngIf="f.phone.errors.required">Phone Number required</div>
+                      <div *ngIf="f.phone.errors.minlength" >Phone Number be at least 2</div>
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Image Url</label>
+                    <input type="text" formControlName="imgUrl" class="form-control" id="exampleInputEmail1" [ngClass]="{'is-invalid':submitted && f.imgUrl.errors}">
+                    <div *ngIf="submitted && f.imgUrl.errors" class="invalid-feedback">
+                      <div *ngIf="f.imgUrl.errors.required">Image Url required</div>
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Employee Code</label>
+                    <input type="text" formControlName="employeeCode" class="form-control" id="exampleInputEmail1" [ngClass]="{'is-invalid':submitted && f.employeeCode.errors}">
+                    <div *ngIf="submitted && f.employeeCode.errors" class="invalid-feedback">
+                      <div *ngIf="f.employeeCode.errors.required">Employee Code required</div>
+                      <div *ngIf="f.employeeCode.errors.minlength" >Employee Code be at least 2</div>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Password</label>
+                    <input type="text" formControlName="password" class="form-control" id="exampleInputEmail1" [ngClass]="{'is-invalid':submitted && f.password.errors}">
+                    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                      <div *ngIf="f.password.errors.required">Password required</div>
+                      <div *ngIf="f.password.errors.minlength" >Password must be at leastMust be at least 4</div>
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Confirmed Password</label>
+                    <input type="text" formControlName="confirmPassword" id="exampleInputEmail1"class="form-control" id="exampleInputEmail1" [ngClass]="{'is-invalid':submitted && f.confirmPassword.errors}">
+                    <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
+                      <div *ngIf="f.confirmPassword.errors.required">Confirm password required</div>
+                      <div *ngIf="f.confirmPassword.errors.mustMatch" >Confirm password must match with password</div>
+                    </div>
+                  </div>
+              </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="cancel" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button *ngIf="showAdd" type="button" (click)="postEmployee()" class="btn btn-primary" >Add</button>
+          <button *ngIf="showUpdate" type="button" (click)="postUpdate()" class="btn btn-primary">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
